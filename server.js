@@ -25,7 +25,9 @@ app.use('/api/v1/user', require('./routes/userRoutes.js')); // User routes
 app.use('/api/v1/admin', require('./routes/adminRoutes.js')); // Admin routes
 app.use('/api/v1/doctor', require('./routes/doctorRoutes.js')); // Doctor routes
 
-
+app.listen('/', (req, res) => {
+    res.send('Welcome to the Health Care API');
+});
 
 // Add this with your other app.use statements
 app.use("/api/v1/medical-records", medicalRecordRoutes);
