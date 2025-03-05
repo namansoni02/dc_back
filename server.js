@@ -2,9 +2,10 @@ const express = require('express');
 const colors = require('colors');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const cors = require('cors'); // Import cors
 const connectDB = require('./config/db.js');
 
-//Add this with your other imports
+// Add this with your other imports
 const medicalRecordRoutes = require("./routes/medicalRecordRoutes");
 
 // Load environment variables
@@ -17,6 +18,7 @@ connectDB();
 const app = express();
 
 // Middleware
+app.use(cors()); // Use cors middleware
 app.use(express.json()); // Parse JSON request bodies
 app.use(morgan('dev')); // Log HTTP requests in development mode
 
@@ -24,10 +26,6 @@ app.use(morgan('dev')); // Log HTTP requests in development mode
 app.use('/api/v1/user', require('./routes/userRoutes.js')); // User routes
 app.use('/api/v1/admin', require('./routes/adminRoutes.js')); // Admin routes
 app.use('/api/v1/doctor', require('./routes/doctorRoutes.js')); // Doctor routes
-
-app.use('/', (req, res) => {
-    res.send('Welcome to the Health Care API');
-});
 
 // Add this with your other app.use statements
 app.use("/api/v1/medical-records", medicalRecordRoutes);
